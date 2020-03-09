@@ -26,7 +26,7 @@ async function start (opts) {
     const result = await currency(opts);
 
     spinner.stop();
-    console.log(`${amount} ${from} = ${result} ${to}`);
+    console.log(`${amount} ${from} = ${result} ${to}`); //To delete when testing
   } catch (error) {
     spinner.stop();
     console.log(error);

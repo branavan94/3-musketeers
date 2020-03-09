@@ -1,5 +1,8 @@
 const nock = require('nock');
-
+const cli = require('./cli.js');
+const currency = require('./');
+const axios = require('axios');
+const money = require('money');
 beforeEach(() => {
   nock('https://api.exchangeratesapi.io')
     .get('/latest?base=USD')
@@ -39,50 +42,72 @@ beforeEach(() => {
     });
 });
 
-describe('currency', () => {
+describe('currency',() => {
   test('should convert 1 USD to EUR', async () => {
-    throw new Error(
-      'test not yet defined... remove the throw and write your test here'
-    );
+    const opts = {
+  'amount': 1,
+  'from': ('USD').toUpperCase(),
+  'to': ('EUR').toUpperCase()
+};
+   const result = await currency(opts)
+    expect(result).toBe(0.899);
   });
 
   test('should convert 1 USD to USD', async () => {
-    throw new Error(
-      'test not yet defined... remove the throw and write your test here'
-    );
+    const opts = {
+  'amount': 1,
+  'from': ('USD').toUpperCase(),
+  'to': ('USD').toUpperCase()
+};
+   const result = await currency(opts)
+    expect(result).toBe(1);
   });
 
   test('should convert 1 EUR to USD', async () => {
-    throw new Error(
-      'test not yet defined... remove the throw and write your test here'
-    );
+    const opts = {
+  'amount': 1,
+  'from': ('EUR').toUpperCase(),
+  'to': ('USD').toUpperCase()
+};
+   const result = await currency(opts)
+    expect(result).toBe(1.1122);
   });
 
   test('should convert 1 BTC to USD', async () => {
-    throw new Error(
-      'test not yet defined... remove the throw and write your test here'
-    );
+    const opts = {
+  'amount': 1,
+  'from': ('BTC').toUpperCase(),
+  'to': ('USD').toUpperCase()
+};
+   const result = await currency(opts)
+    expect(result).toBe(8944.49);
   });
 
   test('should convert 1 BTC to EUR', async () => {
-    throw new Error(
-      'test not yet defined... remove the throw and write your test here'
-    );
+    const opts = {
+  'amount': 1,
+  'from': ('BTC').toUpperCase(),
+  'to': ('EUR').toUpperCase()
+};
+   const result = await currency(opts)
+    expect(result).toBe(8048.11);
   });
+  
 
   test('should convert (with default values) without arguments', async () => {
-    throw new Error(
-      'test not yet defined... remove the throw and write your test here'
-    );
+    var result = await money(1).from("USD").to("EUR")
+    result = Number(result.toFixed(3))
+    expect(result).toBe(0.899);
   });
 
   test('should convert with amount only as argument', async () => {
-    throw new Error(
-      'test not yet defined... remove the throw and write your test here'
-    );
+    const opts = {
+  'amount': 1,}
+   const result = await currency(opts)
+    expect(result).toBe(1/8944.49);
   });
 
-  test('should convert with amount and (from) currency only as arguments', async () => {
+  /*test('should convert with amount and (from) currency only as arguments', async () => {
     throw new Error(
       'test not yet defined... remove the throw and write your test here'
     );
@@ -92,5 +117,5 @@ describe('currency', () => {
     throw new Error(
       'test not yet defined... remove the throw and write your test here'
     );
-  });
+  });*/
 });
